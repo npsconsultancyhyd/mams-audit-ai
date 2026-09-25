@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: mams-audit-ai
+    runtime: node
+    plan: starter            # a paid plan is needed for the persistent disk below
+    buildCommand: ""         # no dependencies to install
+    startCommand: node server/index.js
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: NODE_ENV
+        value: production
+      - key: DATA_DIR
+        value: /var/data
+    disk:
+      name: mams-data
+      mountPath: /var/data
+      sizeGB: 1
