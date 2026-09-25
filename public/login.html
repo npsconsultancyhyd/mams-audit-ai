@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign in · MAMS Audit AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="login-wrap">
+  <form class="login-card" id="f">
+    <div class="logo">M</div>
+    <h1>MAMS Audit AI</h1>
+    <p class="sub">Hospital billing audit — Cash · Insurance · Aarogyasri</p>
+    <div class="form" style="grid-template-columns:1fr">
+      <div class="f"><label>Email</label><input class="in" name="email" type="email" autocomplete="username" required autofocus></div>
+      <div class="f"><label>Password</label><input class="in" name="password" type="password" autocomplete="current-password" required></div>
+    </div>
+    <div class="toolbar" style="margin-top:14px"><button class="btn p" type="submit" id="go" style="width:100%">Sign in</button></div>
+    <div id="err"></div>
+    <p class="note">Ask your administrator for an account. First run uses the admin email and password set on the server.</p>
+  </form>
+</div>
+<script>
+try{ const t=localStorage.getItem('mams.theme'); if(t) document.documentElement.dataset.theme=t; }catch(e){}
+const f=document.getElementById('f'), err=document.getElementById('err'), go=document.getElementById('go');
+f.onsubmit=async e=>{
+  e.preventDefault(); err.innerHTML=''; go.disabled=true; go.textContent='Signing in…';
+  try{
+    const res=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',
+      body:JSON.stringify({email:f.email.value,password:f.password.value})});
+    const d=await res.json().catch(()=>({}));
+    if(!res.ok) throw new Error(d.error||('Sign in failed ('+res.status+')'));
+    location.href='/';
+  }catch(ex){ err.innerHTML='<div class="err">'+ex.message.replace(/[<>&]/g,'')+'</div>'; go.disabled=false; go.textContent='Sign in'; }
+};
+</script>
+</body>
+</html>

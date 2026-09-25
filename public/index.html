@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAMS Audit AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+<header class="top">
+  <div class="top-row">
+    <div class="brand"><div class="logo">M</div><div><h1>MAMS Audit AI</h1><p>Hospital billing audit — Cash · Insurance · Aarogyasri</p></div></div>
+    <div class="period">
+      <label>Audit period</label>
+      <select id="pMode"><option value="all">All bills</option><option value="week">Week-wise</option><option value="month">Month-wise</option></select>
+      <input id="pWeek" type="week" class="hide">
+      <input id="pMonth" type="month" class="hide">
+    </div>
+    <button class="hbtn" id="btnExport">⬇ Export to Excel</button>
+    <button class="hbtn ghost" id="btnRefresh" title="Reload data from the server">⟳</button>
+    <button class="hbtn ghost" id="btnTheme" title="Toggle theme">◐</button>
+    <span class="userbox" id="userBox"></span>
+    <button class="hbtn ghost" id="btnLogout">Sign out</button>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button data-t="dash" class="on">📊 Dashboard</button>
+    <button data-t="input">➕ Bill Input</button>
+    <button data-t="sheet">📑 Audit Sheet</button>
+    <button data-t="pkg">📦 Package Audit</button>
+    <button data-t="tariff">💰 Cash Tariff Master</button>
+    <button data-t="settings">⚙ Settings &amp; AI</button>
+  </nav>
+</header>
+<main id="main"></main>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer"></aside>
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
